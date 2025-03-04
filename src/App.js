@@ -104,7 +104,7 @@ function ManageEmployees() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/");
     setEmployees(res.data);
   };
 
@@ -139,9 +139,9 @@ function ManageEmployees() {
     };
 
     if (editId) {
-      await axios.put(`http://localhost:5000/employees/${editId}`, payload);
+      await axios.put(`https://backend-payroll.vercel.app/employees/${editId}`, payload);
     } else {
-      await axios.post("http://localhost:5000/employees", payload);
+      await axios.post("https://backend-payroll.vercel.app/employees", payload);
     }
     clearForm();
     fetchEmployees();
@@ -157,7 +157,7 @@ function ManageEmployees() {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this employee?")) return;
-    await axios.delete(`http://localhost:5000/employees/${id}`);
+    await axios.delete(`https://backend-payroll.vercel.app/employees/${id}`);
     fetchEmployees();
   };
 
@@ -275,13 +275,13 @@ function AllEmployees() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     setEmployees(res.data);
   };
 
   const confirmDelete = async () => {
     if (!deleteEmp) return;
-    await axios.delete(`http://localhost:5000/employees/${deleteEmp._id}`);
+    await axios.delete(`https://backend-payroll.vercel.app/employees/${deleteEmp._id}`);
     setDeleteEmp(null);
     fetchEmployees();
   };
@@ -390,13 +390,13 @@ function EmployeeDetails() {
   }, []);
 
   const fetchEmployee = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     const found = res.data.find((e) => e._id === id);
     if (found) setEmployee(found);
   };
 
   const fetchLogs = async () => {
-    const res = await axios.get(`http://localhost:5000/worklogs/${id}`);
+    const res = await axios.get(`https://backend-payroll.vercel.app/worklogs/${id}`);
     setLogs(res.data);
   };
 
@@ -478,7 +478,7 @@ function WorkLogPage() {
   }, []);
 
   const fetchEmployee = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     const found = res.data.find((e) => e._id === id);
     if (found) setEmployee(found);
   };
@@ -498,7 +498,7 @@ function WorkLogPage() {
   };
 
   const confirmSave = async () => {
-    await axios.post("http://localhost:5000/worklogs", {
+    await axios.post("https://backend-payroll.vercel.app/worklogs", {
       employeeId: id,
       date: date ? new Date(date) : new Date(),
       hours_payrate1: parseFloat(hours1) || 0,
@@ -632,18 +632,18 @@ function CalculatePayPage() {
   }, []);
 
   const fetchEmployee = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     const foundEmp = res.data.find((emp) => emp._id === id);
     if (foundEmp) setEmployee(foundEmp);
   };
 
   const previewPay = async () => {
-    const res = await axios.get(`http://localhost:5000/preview-pay/${id}`);
+    const res = await axios.get(`https://backend-payroll.vercel.app/preview-pay/${id}`);
     setPreview(res.data);
   };
 
   const embusePay = async () => {
-    const res = await axios.post(`http://localhost:5000/disburse-pay/${id}`);
+    const res = await axios.post(`https://backend-payroll.vercel.app/disburse-pay/${id}`);
     alert(`Pay of £${res.data.netPay} disbursed!`);
     navigate(`/details/${id}`);
   };
@@ -709,7 +709,7 @@ function MonthlyReportPage() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await axios.get("http://localhost:5000/employees");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     setEmployees(res.data);
   };
 
@@ -720,7 +720,7 @@ function MonthlyReportPage() {
       if (year) params.year = year;   // if blank, backend uses current
       if (selectedEmployee) params.employeeId = selectedEmployee;
 
-      const res = await axios.get("http://localhost:5000/reports/monthly", {
+      const res = await axios.get("https://backend-payroll.vercel.app/reports/monthly", {
         params,
       });
       console.log("Report data:", res.data); // debug
