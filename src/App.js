@@ -104,7 +104,7 @@ function ManageEmployees() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await axios.get("https://backend-payroll.vercel.app/");
+    const res = await axios.get("https://backend-payroll.vercel.app/employees");
     setEmployees(res.data);
   };
 
